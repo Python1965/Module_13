@@ -58,13 +58,16 @@ api = ''
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
-
 class UserState(StatesGroup):
     age = State()
     growth = State()
     weight = State()
 
-@dp.message_handler(text='Colories')
+@dp.message_handler(commands=['start'])
+async def start_message(message):
+    await message.answer('Привет! Я бот помогающий твоему здоровью.')
+
+@dp.message_handler(text='Calories')
 async def set_age(message):
     await message.answer('Введите свой возраст:')
     await UserState.age.set()
